@@ -19,7 +19,7 @@ import org.junit.Test
 import org.junit.runners.Parameterized
 
 class NewMultiplatformProjectImportingTest : GradleImportingTestCase() {
-    private val kotlinVersion = "1.2.70-dev-1648"
+    private val kotlinVersion = "1.3.0-dev-218"
 
     @Test
     fun testProjectDependency() {
@@ -134,7 +134,6 @@ class NewMultiplatformProjectImportingTest : GradleImportingTestCase() {
                 platform(CommonIdePlatformKind.Platform)
                 libraryDependency("Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion", DependencyScope.COMPILE)
                 moduleDependency("app_commonMain", DependencyScope.COMPILE)
-                moduleDependency("lib_metadataMain", DependencyScope.COMPILE)
                 sourceFolder("app/src/metadataMain/kotlin", KotlinSourceRootType.Source)
                 sourceFolder("app/src/metadataMain/resources", KotlinResourceRootType.Resource)
                 outputPath("app/build/classes/kotlin/metadata/main", true)
@@ -145,7 +144,6 @@ class NewMultiplatformProjectImportingTest : GradleImportingTestCase() {
                 moduleDependency("app_commonMain", DependencyScope.COMPILE)
                 moduleDependency("app_commonTest", DependencyScope.COMPILE)
                 moduleDependency("app_metadataMain", DependencyScope.COMPILE)
-                moduleDependency("lib_metadataMain", DependencyScope.COMPILE)
                 sourceFolder("app/src/metadataTest/kotlin", KotlinSourceRootType.TestSource)
                 sourceFolder("app/src/metadataTest/resources", KotlinResourceRootType.TestResource)
                 outputPath("app/build/classes/kotlin/metadata/test", false)

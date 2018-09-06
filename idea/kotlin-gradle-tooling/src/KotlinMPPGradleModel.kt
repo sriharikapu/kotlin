@@ -77,6 +77,10 @@ interface KotlinTarget : Serializable {
     val platform: KotlinPlatform
     val compilations: Collection<KotlinCompilation>
     val jar: KotlinTargetJar?
+
+    companion object {
+        const val METADATA_TARGET_NAME = "metadata"
+    }
 }
 
 interface ExtraFeatures : Serializable {
