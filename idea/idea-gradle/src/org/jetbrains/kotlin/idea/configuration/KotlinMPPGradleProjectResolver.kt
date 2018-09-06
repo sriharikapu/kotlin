@@ -346,6 +346,7 @@ open class KotlinMPPGradleProjectResolver : AbstractProjectResolverExtension() {
                     ?.let { ideModule.findChildModuleByInternalName(it) }
                     ?.kotlinSourceSet
                     ?.kotlinModule
+                    ?.toSourceSet(mppModel)
                 if (productionSourceSet != null) {
                     sourceSetGraph.putEdge(sourceSet, productionSourceSet)
                 }
@@ -362,6 +363,15 @@ open class KotlinMPPGradleProjectResolver : AbstractProjectResolverExtension() {
                     val toDataNode = getSiblingKotlinModuleData(dependeeSourceSet, gradleModule, ideModule, resolverCtx) ?: continue
                     addDependency(fromDataNode, toDataNode)
                 }
+                val sourceSetInfo = fromDataNode.kotlinSourceSet
+                if (sourceSetInfo != null && sourceSetInfo.kotlinModule is KotlinCompilation) {
+                    val selfName = sourceSetInfo.kotlinModule.fullName()
+                    sourceSetInfo.sourceSetIdsByName = dependeeSourceSets
+                        .asSequence()
+                        .filter { it.fullName() != selfName }
+                        .map { it.name to getKotlinModuleId(gradleModule, it, resolverCtx) }
+                        .toMap()
+                }
                 if (processedModuleIds.add(getKotlinModuleId(gradleModule, sourceSet, resolverCtx))) {
                     val mergedDependencies = LinkedHashSet<KotlinDependency>().apply {
                         addAll(sourceSet.dependencies)
@@ -377,6 +387,12 @@ open class KotlinMPPGradleProjectResolver : AbstractProjectResolverExtension() {
                     )
                 }
             }
+        }
+
+        private fun KotlinModule.toSourceSet(mppModel: KotlinMPPGradleModel) = when (this) {
+            is KotlinSourceSet -> this
+            is KotlinCompilation -> mppModel.sourceSets[fullName()]
+            else -> null
         }
 
         private fun preprocessDependencies(
@@ -609,11 +625,6 @@ open class KotlinMPPGradleProjectResolver : AbstractProjectResolverExtension() {
                 }
                 it.dependencyClasspath = compilation.dependencyClasspath
                 it.defaultCompilerArguments = createCompilerArguments(compilation.arguments.defaultArguments, compilation.platform)
-                it.sourceSetIdsByName = compilation.sourceSets
-                    .asSequence()
-                    .filter { it.fullName() != compilation.fullName() }
-                    .map { it.name to getKotlinModuleId(gradleModule, it, resolverCtx) }
-                    .toMap()
             }
         }
 
