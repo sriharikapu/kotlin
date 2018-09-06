@@ -249,7 +249,7 @@ class MemberDeserializer(private val c: DeserializationContext) {
         else Annotations.EMPTY
         val versionRequirementTable =
             if (c.containingDeclaration.fqNameSafe.child(c.nameResolver.getName(proto.name)) == KOTLIN_SUSPEND_BUILT_IN_FUNCTION_FQ_NAME)
-                c.versionRequirementTable.filterOutLanguageVersionRequirement()
+                VersionRequirementTable.EMPTY
             else
                 c.versionRequirementTable
         val function = DeserializedSimpleFunctionDescriptor(
