@@ -11,6 +11,7 @@
         <projectResolve implementation="org.jetbrains.kotlin.noarg.ide.NoArgProjectResolverExtension" order="last"/>
         <projectResolve implementation="org.jetbrains.kotlin.samWithReceiver.ide.SamWithReceiverProjectResolverExtension" order="last"/>
         <projectResolve implementation="org.jetbrains.kotlin.idea.configuration.KotlinMPPGradleProjectResolver"/>
+        <orderEnumerationHandlerFactory implementation="org.jetbrains.kotlin.android.KotlinAndroidGradleOrderEnumerationHandler$FactoryImpl" order="first"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -61,8 +62,6 @@
 
         <runConfigurationProducer implementation="org.jetbrains.kotlin.idea.run.KotlinTestClassGradleConfigurationProducer"/>
         <runConfigurationProducer implementation="org.jetbrains.kotlin.idea.run.KotlinTestMethodGradleConfigurationProducer"/>
-
-        <orderEnumerationHandlerFactory implementation="org.jetbrains.kotlin.android.AndroidGradleOrderEnumerationHandler$FactoryImpl" order="first"/>
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
