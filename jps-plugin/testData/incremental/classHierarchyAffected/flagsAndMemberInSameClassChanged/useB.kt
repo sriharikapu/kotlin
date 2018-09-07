@@ -1,3 +1,3 @@
 fun useB() {
-    getB().x.equals("x")
+    getB().x.string()
 }

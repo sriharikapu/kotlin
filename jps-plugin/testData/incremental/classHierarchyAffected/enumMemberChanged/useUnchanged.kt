@@ -1,5 +1,5 @@
 import Enum.*
 
 fun useUnchanged(e: Enum) {
-    println(e.unchanged.equals("x"))
+    println(e.unchanged.string())
 }
