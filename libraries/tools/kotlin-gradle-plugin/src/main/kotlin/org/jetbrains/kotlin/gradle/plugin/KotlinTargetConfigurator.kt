@@ -196,7 +196,7 @@ abstract class AbstractKotlinTargetConfigurator<KotlinTargetType : KotlinTarget>
             usesPlatformOf(target)
         }
 
-        defaultConfiguration.extendsFrom(runtimeElementsConfiguration).usesPlatformOf(target)
+        defaultConfiguration.extendsFrom(runtimeElementsConfiguration)
 
         if (createTestCompilation) {
             val testCompilation = target.compilations.getByName(KotlinCompilation.TEST_COMPILATION_NAME)
