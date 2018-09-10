@@ -68,5 +68,8 @@ class AnalysisFlag<out T> internal constructor(
 
         @JvmStatic
         val jvmDefaultMode by Flag.JvmDefaultModeDisabledByDefaul
+
+        @JvmStatic
+        val allowResultReturnType by Flag.Boolean
     }
 }
