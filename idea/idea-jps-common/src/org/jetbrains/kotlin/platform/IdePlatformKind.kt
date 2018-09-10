@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.cli.common.arguments.CommonCompilerArguments
 import org.jetbrains.kotlin.platform.impl.CommonIdePlatformKind
 import org.jetbrains.kotlin.platform.impl.JsIdePlatformKind
 import org.jetbrains.kotlin.platform.impl.JvmIdePlatformKind
+import org.jetbrains.kotlin.platform.impl.OtherIdePlatformKind
 import org.jetbrains.kotlin.resolve.TargetPlatform
 import org.jetbrains.kotlin.utils.addToStdlib.firstNotNullResult
 
@@ -39,7 +40,7 @@ abstract class IdePlatformKind<Kind : IdePlatformKind<Kind>> {
         }
 
         // For using only in JPS
-        private val JPS_KINDS get() = listOf(JvmIdePlatformKind, JsIdePlatformKind, CommonIdePlatformKind)
+        private val JPS_KINDS get() = listOf(JvmIdePlatformKind, JsIdePlatformKind, CommonIdePlatformKind, OtherIdePlatformKind)
 
         val ALL_KINDS by lazy {
             val kinds = extension?.getInstances() ?: return@lazy JPS_KINDS
